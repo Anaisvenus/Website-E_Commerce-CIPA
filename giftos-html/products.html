@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Nos Derniers Produits</title>
+</head>
+<body class="bg-gray-100">
+  <!-- Hero Area -->
+  <div class="hero_area">
+    <!-- Header Section -->
+    <header class="header_section">
+      <div class="flex justify-center items-center lg:flex-none lg:text-left">
+        <a
+          class="navbar-brand text-2xl font-bold uppercase text-gray-800"
+          href="index.html"
+        >
+          CIPA JESSOUGNON
+        </a>
+      </div>
+      <nav class="navbar w-full h-20 rounded-t-lg shadow-md flex flex-wrap items-center justify-center" style="background-color: #b6d023;">
+        <!-- Logo centré -->
+    
+        <!-- Bouton de toggler pour mobile -->
+        <button
+          class="navbar-toggler block lg:hidden ml-auto focus:outline-none"
+          onclick="toggleNavbar()"
+        >
+          <span class="block w-8 h-1 bg-gray-800 mb-1"></span>
+          <span class="block w-8 h-1 bg-gray-800 mb-1"></span>
+          <span class="block w-8 h-1 bg-gray-800"></span>
+        </button>
+    
+        <!-- Liens de navigation -->
+        <div
+          id="navbarMenu"
+          class="hidden lg:flex flex-col lg:flex-row lg:items-center lg:space-x-6 w-full lg:w-auto mt-4 lg:mt-0"
+        >
+          <ul class="navbar-nav flex flex-col lg:flex-row lg:space-x-6 text-sm uppercase text-gray-600 w-full lg:w-auto">
+            <li class="nav-item">
+              <a class="nav-link hover:text-gray-800" href="index.html">Accueil</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link hover:text-gray-800" href="shop.html">Nos produits</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link hover:text-gray-800" href="basket.html">Mon panier</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link hover:text-gray-800" href="testimonial.html">Avis</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link hover:text-gray-800" href="contact.html">Contactez-nous</a>
+            </li>
+          </ul>
+        </div>
+    
+        <!-- Icônes utilisateur -->
+        <div class="user_option flex space-x-4 mt-4 lg:mt-0">
+          <a href="basket.html" class="text-gray-600 hover:text-gray-800">
+            <i class="fa fa-shopping-bag"></i>
+          </a>
+          <form class="form-inline">
+            <button
+              class="btn nav_search-btn bg-gray-200 p-2 rounded-full hover:bg-gray-300"
+            >
+              <i class="fa fa-search text-gray-600"></i>
+            </button>
+          </form>
+        </div>
+      </nav>
+    </header>
+    
+    <script>
+      function toggleNavbar() {
+        const navbarMenu = document.getElementById("navbarMenu");
+        navbarMenu.classList.toggle("hidden");
+      }
+    </script>
+    
+    <!-- End Header Section -->
+
+    <!-- Slider Section -->
+    <div class="relative overflow-hidden">
+      <!-- Carousel Wrapper -->
+      <div id="carousel" class="flex transition-transform duration-500">
+        <!-- Slide 1 -->
+        <div class="flex-shrink-0 w-full">
+          <div class="flex items-center justify-between h-screen bg-green-200 px-10">
+            <!-- Texte à gauche -->
+            <div class="text-left w-1/2">
+              <h1 class="text-4xl font-bold text-gray-800">
+                Sécurité, propreté, et efficacité
+              </h1>
+              <p class="mt-4 text-lg text-gray-700">
+                Tout ce dont vous avez besoin pour un environnement sain est ici.
+              </p>
+              <a href="#" class="mt-6 inline-block px-6 py-2 bg-green-500 text-white font-bold rounded-lg">
+                Contactez-nous
+              </a>
+            </div>
+            <!-- Image à droite -->
+            <div class="w-1/2">
+              <img
+                class="w-full h-auto"
+                src="images/Publication_Instagram_hygiène_illustrée_COVID-19-removebg-preview.png"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+        <!-- Slide 2 -->
+        <div class="flex-shrink-0 w-full">
+          <div class="flex items-center justify-between h-screen bg-green-400 px-10">
+            <!-- Texte à gauche -->
+            <div class="text-left w-1/2">
+              <h1 class="text-4xl font-bold text-gray-800">
+                Nettoyage et entretien professionnel
+              </h1>
+              <p class="mt-4 text-lg text-gray-700">
+                Services d’hygiène pour des environnements sains et durables.
+              </p>
+              <a href="#" class="mt-6 inline-block px-6 py-2 bg-green-500 text-white font-bold rounded-lg">
+                En savoir plus
+              </a>
+            </div>
+            <!-- Image à droite -->
+            <div class="w-1/2">
+              <img
+                class="w-full h-auto"
+                src="images/Publication_Instagram_hygiène_illustrée_COVID-19-removebg-preview.png"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+        <!-- Slide 3 -->
+        <div class="flex-shrink-0 w-full">
+          <div class="flex items-center justify-between h-screen bg-green-600 px-10">
+            <!-- Texte à gauche -->
+            <div class="text-left w-1/2">
+              <h1 class="text-4xl font-bold text-gray-800">
+                Espaces verts bien entretenus
+              </h1>
+              <p class="mt-4 text-lg text-gray-700">
+                Aménagement et désherbage chimique, mécanique et bio.
+              </p>
+              <a href="#" class="mt-6 inline-block px-6 py-2 bg-green-500 text-white font-bold rounded-lg">
+                Contactez-nous
+              </a>
+            </div>
+            <!-- Image à droite -->
+            <div class="w-1/2">
+              <img
+                class="w-full h-auto"
+                src="images/Publication_Instagram_hygiène_illustrée_COVID-19-removebg-preview.png"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <!-- Navigation Buttons -->
+      <button
+        id="prev"
+        class="absolute left-5 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-gray-700"
+      >
+        &larr;
+      </button>
+      <button
+        id="next"
+        class="absolute right-5 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-gray-700"
+      >
+        &rarr;
+      </button>
+    </div>
+    
+    <script>
+      const carousel = document.getElementById("carousel");
+      const slides = carousel.children;
+      const totalSlides = slides.length;
+    
+      let index = 0;
+    
+      document.getElementById("prev").addEventListener("click", () => {
+        index = (index - 1 + totalSlides) % totalSlides;
+        carousel.style.transform = `translateX(-${index * 100}%)`;
+      });
+    
+      document.getElementById("next").addEventListener("click", () => {
+        index = (index + 1) % totalSlides;
+        carousel.style.transform = `translateX(-${index * 100}%)`;
+      });
+    </script>
+    
+    
+    <!-- End Slider Section -->
+
+  </div>
+  <div class="max-w-6xl mx-auto py-10">
+    <h1 class="text-2xl font-bold text-center mb-8">NOS DERNIERS PRODUITS</h1>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <!-- Produit 1 -->
+      <div class="bg-blue-100 p-6 rounded-lg shadow-lg">
+        <div class="flex justify-end">
+          <button class="w-8 h-8 bg-white rounded-full shadow flex items-center justify-center">
+            <span class="text-black">★</span>
+          </button>
+        </div>
+        <img src="images/background removed images/IMG_7265.PNG" alt="Oxivir Excel Foam" class="w-full h-32 object-contain mx-auto">
+        <h2 class="mt-4 text-lg font-bold">Oxivir Excel Foam</h2>
+        <p class="text-red-500 text-lg font-bold">7362 FCFA</p>
+      </div>
+
+      <!-- Produit 2 -->
+      <div class="bg-blue-100 p-6 rounded-lg shadow-lg">
+        <div class="flex justify-end">
+          <button class="w-8 h-8 bg-white rounded-full shadow flex items-center justify-center">
+            <span class="text-black">★</span>
+          </button>
+        </div>
+        <img src="images/background removed images/IMG_7381.PNG" alt="Distributeur manuel" class="w-full h-32 object-contain mx-auto">
+        <h2 class="mt-4 text-lg font-bold">Distributeur manuel de savon antimicrobien</h2>
+        <p class="text-red-500 text-lg font-bold">25 000 FCFA</p>
+      </div>
+
+      <!-- Produit 3 -->
+      <div class="bg-blue-100 p-6 rounded-lg shadow-lg">
+        <div class="flex justify-end">
+          <button class="w-8 h-8 bg-white rounded-full shadow flex items-center justify-center">
+            <span class="text-black">★</span>
+          </button>
+        </div>
+        <img src="images/background removed images/IMG_7326.PNG" alt="Azure Foam" class="w-full h-32 object-contain mx-auto">
+        <h2 class="mt-4 text-lg font-bold">Azure Foam</h2>
+        <p class="text-red-500 text-lg font-bold">1500 FCFA</p>
+      </div>
+
+      <!-- Produit 4 -->
+      <div class="bg-blue-100 p-6 rounded-lg shadow-lg">
+        <div class="flex justify-end">
+          <button class="w-8 h-8 bg-white rounded-full shadow flex items-center justify-center">
+            <span class="text-black">★</span>
+          </button>
+        </div>
+        <img src="images/background removed images/IMG_7327.PNG" alt="Relax Foam" class="w-full h-32 object-contain mx-auto">
+        <h2 class="mt-4 text-lg font-bold">Relax Foam</h2>
+        <p class="text-red-500 text-lg font-bold">1500 FCFA</p>
+      </div>
+    </div>
+
+    <div class="flex justify-center mt-8">
+      <button class="bg-green-500 text-white px-6 py-2 rounded-lg shadow-lg hover:bg-green-600">
+        Voir plus de produits
+      </button>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="images/logo.jpg" type="image/x-icon">
+
+  <title>
+    CIPA JESSOUGNON
+  </title>
+  <!-- Link fontawesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <!-- slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="css/responsive.css" rel="stylesheet" />
+
+  <!-- tailwindcss -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.0/dist/tailwind.min.css" rel="stylesheet">
+
+
+<style>
+  body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f9f9f9;
+      padding: 20px;
+  }
+
+  .cart-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+  }
+
+  .cart-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 10px;
+  }
+
+  .cart-item img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      margin-right: 20px;
+  }
+
+  .cart-item-details {
+      flex: 1;
+  }
+
+  .cart-item-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 5px;
+  }
+
+  .cart-item-price {
+      color: #28a745;
+      font-weight: bold;
+      margin-bottom: 10px;
+  }
+
+  .cart-item-quantity {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+  }
+
+  .input-number {
+      width: 50px;
+      text-align: center;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+  }
+
+  .checkout {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+  }
+
+  .checkout button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+  }
+</style>
+</head>
+
+<body>
+  <div class="hero_area">
+    <!-- header section strats -->
+    <header class="header_section">
+      <nav class="navbar navbar-expand-lg custom_nav-container ">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class=""></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav  ">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Accueil</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="shop.html">
+                Nos produits
+              </a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="basket.html">
+                Mon panier <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="testimonial.html">
+                Avis
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contactez-nous</a>
+            </li>
+          </ul>
+          <div class="user_option">
+            <a href="">
+              <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+            </a>
+            <form class="form-inline ">
+              <button class="btn nav_search-btn" type="submit">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </button>
+            </form>
+            <a href="login.html">Se connecter</a>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <!-- end header section -->
+
+  </div>
+  <!-- end hero area -->
+
+  <!-- basket section -->
+  <div class="cart-container">
+    <h1 class="text-2xl font-bold mb-4">Mon Panier</h1>
+    <div id="cart-items"></div>
+    <div class="checkout">
+        <span id="total-price" class="font-bold text-lg">Total : 0 €</span>
+        <button onclick="checkout()">Valider mon panier</button>
+    </div>
+</div>
+
+<script>
+    function loadCart() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cartItems = document.getElementById("cart-items");
+    let totalPrice = 0;
+
+    cartItems.innerHTML = "";
+
+    cart.forEach((product, index) => {
+        const item = document.createElement("div");
+        item.classList.add("cart-item");
+        item.innerHTML = `
+            <div class="cart-item-details">
+                <div class="cart-item-title">${product.name}</div>
+                <div class="cart-item-price">${(product.price * product.quantity).toFixed(2)} €</div>
+                <div class="cart-item-quantity">
+                    <label>Quantité :</label>
+                    <input class="input-number" type="number" value="${product.quantity}" min="1" 
+                           onchange="updateQuantity(${index}, this.value)">
+                </div>
+            </div>
+            <button class="remove-btn" onclick="removeItem(${index})">Supprimer</button>
+        `;
+
+        cartItems.appendChild(item);
+        totalPrice += product.price * product.quantity;
+    });
+
+    document.getElementById("total-price").innerText = `Total : ${totalPrice.toFixed(2)} €`;
+}
+
+function removeItem(index) {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.splice(index, 1); // Supprime l'élément à l'index donné
+    localStorage.setItem("cart", JSON.stringify(cart)); // Met à jour le localStorage
+    loadCart(); // Recharge le panier
+}
+
+  function updateQuantity(index, newQuantity) {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      if (newQuantity < 1) return;
+
+      cart[index].quantity = parseInt(newQuantity, 10);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      loadCart();
+  }
+
+  function checkout() {
+      alert("Passage à la caisse !");
+      localStorage.removeItem("cart");
+      loadCart();
+  }
+
+  loadCart();
+
+</script>
+  
+  <!-- end why section -->
+
+  <!-- info section -->
+
+  <section class="info_section layout_padding2-top">
+    <div class="social_container">
+      <div class="social_box">
+        <a href="">
+          <i class="fa fa-facebook" aria-hidden="true"></i>
+        </a>
+        <a href="">
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
+        <a href="">
+          <i class="fa fa-instagram" aria-hidden="true"></i>
+        </a>
+        <a href="">
+          <i class="fa-brands fa-whatsapp"></i>
+        </a>
+      </div>
+    </div>
+    <div class="info_container ">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-lg-3">
+            <h6>
+              CIPA JESSOUGNON
+            </h6>
+            <p>
+              Nous sommes une entreprise de nettoyage professionnelle dédiée à fournir des services
+                    de haute qualité avec des pratiques respectueuses de l'environnement.
+            </p>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="info_form ">
+              <h5>
+                Newsletter
+              </h5>
+              <form action="#">
+                <input type="email" placeholder="Entrez votre email">
+                <button>
+                  <a href="href="mailto:jessougnoncipa2@yahoo.fr" ">Abonnez-vous</a>
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <h6>
+              Besoin d'aide?
+            </h6>
+            <p>Contactez-le <a href="tel:+229 62 31 5172">+229 62 31 5172</a></p>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <h6>
+              CONTACTTEZ-NOUS
+            </h6>
+            <div class="info_link-box">
+              <a href="">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span> 9F74+4QM, Rue 1682B, Cotonou </span>
+              </a>
+              <a href="">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>+229 62 31 5172</span>
+              </a>
+              <a href="">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span> jessougnoncipa2@yahoo.fr</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- footer section -->
+    <footer class=" footer_section">
+      <div class="container">
+        <p>
+          &copy; <span id="displayYear"></span> All Rights Reserved By
+          <a href="https://html.design/">Free Html Templates</a>
+        </p>
+      </div>
+    </footer>
+    <!-- footer section -->
+
+  </section>
+
+  <!-- end info section -->
+
+
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/bootstrap.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+  </script>
+  <script src="js/custom.js"></script>
+
+</body>
+
+</html>
