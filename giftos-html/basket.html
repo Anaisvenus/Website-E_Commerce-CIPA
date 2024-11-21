@@ -175,7 +175,7 @@
     <h1 class="text-2xl font-bold mb-4">Mon Panier</h1>
     <div id="cart-items"></div>
     <div class="checkout">
-        <span id="total-price" class="font-bold text-lg">Total : 0 €</span>
+        <span id="total-price" class="font-bold text-lg">Total : 0 FCFA</span>
         <button onclick="checkout()">Valider mon panier</button>
     </div>
 </div>
@@ -194,7 +194,7 @@
         item.innerHTML = `
             <div class="cart-item-details">
                 <div class="cart-item-title">${product.name}</div>
-                <div class="cart-item-price">${(product.price * product.quantity).toFixed(2)} €</div>
+                <div class="cart-item-price">${(product.price * product.quantity).toFixed(2)} FCFA</div>
                 <div class="cart-item-quantity">
                     <label>Quantité :</label>
                     <input class="input-number" type="number" value="${product.quantity}" min="1" 
@@ -208,7 +208,7 @@
         totalPrice += product.price * product.quantity;
     });
 
-    document.getElementById("total-price").innerText = `Total : ${totalPrice.toFixed(2)} €`;
+    document.getElementById("total-price").innerText = `Total : ${totalPrice.toFixed(2)} FCFA`;
 }
 
 function removeItem(index) {

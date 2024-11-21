@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <title>CIPA JESSOUGNON</title>
+  <title>CIPA JESSOUGNON - Commande</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="css/bootstrap.css" />
   <link href="css/style.css" rel="stylesheet" />
@@ -13,23 +13,25 @@
 
   <style>
     body { font-family: 'Poppins', sans-serif; background-color: #f9f9f9; padding: 20px; }
-    .cart-container { max-width: 800px; margin: 0 auto; background-color: white; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); padding: 20px; }
-    .cart-item { display: flex; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #ddd; padding-bottom: 10px; }
-    .cart-item img { width: 80px; height: 80px; object-fit: cover; margin-right: 20px; }
-    .cart-item-details { flex: 1; }
-    .cart-item-title { font-size: 18px; font-weight: 600; margin-bottom: 5px; }
-    .cart-item-price { color: #28a745; font-weight: bold; margin-bottom: 10px; }
-    .cart-item-quantity { display: flex; align-items: center; gap: 10px; }
-    .input-number { width: 50px; text-align: center; border: 1px solid #ddd; border-radius: 5px; }
-    .checkout { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; }
-    .checkout button { background-color: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; font-size: 16px; font-weight: 600; cursor: pointer; }
+    .payment-container { max-width: 900px; margin: 0 auto; background-color: white; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); padding: 20px; }
+    .payment-header { text-align: center; margin-bottom: 30px; }
+    .form-group { margin-bottom: 20px; }
+    .form-control { padding: 10px; border-radius: 5px; border: 1px solid #ddd; }
+    .cart-table { width: 100%; margin-top: 30px; border-collapse: collapse; }
+    .cart-table th, .cart-table td { padding: 12px; border: 1px solid #ddd; text-align: center; }
+    .cart-table th { background-color: #007bff; color: white; }
+    .cart-item-name { width: 50%; }
+    .cart-item-price { width: 25%; }
+    .cart-item-quantity { width: 25%; }
+    .checkout-btn { background-color: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; font-size: 16px; font-weight: 600; cursor: pointer; }
   </style>
 
   <script>
-    // Function to load the cart from localStorage
+    // Function to load the cart from localStorage and display the cart items in the table
     function loadCart() {
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
       const cartItems = document.getElementById("cart-items");
+      const totalPriceElement = document.getElementById("total-price");
       let totalPrice = 0;
       
       cartItems.innerHTML = ""; // Clear current cart items
@@ -39,44 +41,17 @@
         const itemTotalPrice = product.prix_unitaire * product.quantity;
         totalPrice += itemTotalPrice;
         const cartItem = `
-          <div class="cart-item">
-            <img src="${product.image_url}" alt="${product.nom}">
-            <div class="cart-item-details">
-              <div class="cart-item-title">${product.nom}</div>
-              <div class="cart-item-price">${product.prix_unitaire} FCFA</div>
-              <div class="cart-item-quantity">
-                <button onclick="updateQuantity(${index}, -1)">-</button>
-                <input type="number" value="${product.quantity}" id="quantity-${index}" class="input-number" onchange="updateQuantity(${index})">
-                <button onclick="updateQuantity(${index}, 1)">+</button>
-              </div>
-            </div>
-            <button onclick="removeItem(${index})" class="remove-item">🗑️</button>
-          </div>
+          <tr>
+            <td class="cart-item-name">${product.nom}</td>
+            <td class="cart-item-price">${product.prix_unitaire} FCFA</td>
+            <td class="cart-item-quantity">${product.quantity}</td>
+          </tr>
         `;
         cartItems.innerHTML += cartItem;
       });
 
       // Display total price
-      document.getElementById("total-price").innerText = totalPrice + " FCFA";
-    }
-
-    // Update the quantity of a product in the cart
-    function updateQuantity(index, delta = 0) {
-      const cart = JSON.parse(localStorage.getItem("cart"));
-      const newQuantity = delta ? cart[index].quantity + delta : document.getElementById("quantity-" + index).value;
-      if (newQuantity > 0) {
-        cart[index].quantity = newQuantity;
-      }
-      localStorage.setItem("cart", JSON.stringify(cart));
-      loadCart(); // Reload the cart
-    }
-
-    // Remove an item from the cart
-    function removeItem(index) {
-      const cart = JSON.parse(localStorage.getItem("cart"));
-      cart.splice(index, 1);
-      localStorage.setItem("cart", JSON.stringify(cart));
-      loadCart(); // Reload the cart
+      totalPriceElement.innerText = totalPrice + " FCFA";
     }
 
     window.onload = loadCart;
@@ -84,69 +59,93 @@
 </head>
 <body>
   <div class="hero_area">
-    <!-- header section strats -->
+    <!-- header section -->
     <header class="header_section">
       <nav class="navbar navbar-expand-lg custom_nav-container ">
         <a class="navbar-brand" href="index.html">
-          <span>
-            CIPA JESSOUGNON
-          </span>
+          <span>CIPA JESSOUGNON</span>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class=""></span>
         </button>
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav  ">
+          <ul class="navbar-nav">
             <li class="nav-item active">
-              <a class="nav-link" href="index.html">Accueil <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="index.html">Accueil</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="shop.html">
-                Nos produits
-              </a>
+              <a class="nav-link" href="shop.html">Nos produits</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="basket.html">
-                Mon panier
-              </a>
+              <a class="nav-link" href="basket.html">Mon panier</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="testimonial.html">
-                Avis
-              </a>
+              <a class="nav-link" href="testimonial.html">Avis</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="contact.html">Contactez-nous</a>
             </li>
           </ul>
           <div class="user_option">
-            <a href="basket.html">
-              <i class="fa fa-shopping-bag" aria-hidden="true"></i>
-            </a>
-            <form class="form-inline ">
-              <button class="btn nav_search-btn" type="submit">
-                <i class="fa fa-search" aria-hidden="true"></i>
-              </button>
-            </form>
+            <a href="basket.html"><i class="fa fa-shopping-bag" aria-hidden="true"></i></a>
             <a href="login.html">Se connecter</a>
           </div>
         </div>
       </nav>
     </header>
     <!-- end header section -->
-    <!-- slider section -->
 
-  </div>
-  <!-- end hero area -->
+    <div class="payment-container">
+      <div class="payment-header">
+        <h2>Valider votre commande</h2>
+      </div>
 
-  <div class="cart-container">
-    <h2>Votre panier</h2>
-    <div id="cart-items"></div>
-    <div class="checkout">
-      <div>Total : <span id="total-price">0 FCFA</span></div>
-      <a href="payment.html">
-      <button >Valider la commande</button></a>
+      <!-- Form for customer information -->
+      <form id="payment-form">
+        <div class="form-group">
+          <label for="full-name">Nom Complet:</label>
+          <input type="text" id="full-name" class="form-control" placeholder="Votre nom complet" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" class="form-control" placeholder="Votre email" required>
+        </div>
+        <div class="form-group">
+          <label for="address">Adresse de Livraison:</label>
+          <textarea id="address" class="form-control" placeholder="Votre adresse de livraison" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="payment-method">Mode de Paiement:</label>
+          <select id="payment-method" class="form-control" required>
+            <option value="credit-card">Carte de Crédit</option>
+            <option value="paypal">PayPal</option>
+            <option value="cash-on-delivery">Paiement à la Livraison</option>
+          </select>
+        </div>
+
+        <!-- Cart items table -->
+        <div class="cart-summary">
+          <h3>Résumé de la commande</h3>
+          <table class="cart-table">
+            <thead>
+              <tr>
+                <th>Produit</th>
+                <th>Prix Unitaire</th>
+                <th>Quantité</th>
+              </tr>
+            </thead>
+            <tbody id="cart-items">
+              <!-- Cart items will be populated here by JavaScript -->
+            </tbody>
+          </table>
+          <div class="checkout">
+            <div>Total: <span id="total-price">0 FCFA</span></div>
+          </div>
+        </div>
+
+        <!-- Submit button -->
+        <button type="submit" class="checkout-btn">Confirmer la commande</button>
+      </form>
     </div>
   </div>
 

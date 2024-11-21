@@ -1,0 +1,140 @@
+/* Conteneur global */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    margin: 0;
+    padding: 20px;
+  }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* Titre */
+  .title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  /* Grille des produits */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  /* Conteneur de chaque carte produit */
+.product-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 15px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  /* Conteneur des informations de produit */
+.product-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+  .product-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+  .product-title {
+    font-size: 1.5rem;
+    font: bold;
+    font-weight: bold;
+    margin: 10px 0;
+  }
+  .product-category {
+    text-align: start;
+    font-size: 1rem;
+    color: #777;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+  }
+  .product-rating {
+    color: #ffcc00;
+    margin-bottom: 10px;
+  }
+  .rating-count {
+    color: #666;
+    font-size: 0.8rem;
+  }
+  .product-price {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  .current-price {
+    color: #2ecc71;
+  }
+  .old-price {
+    text-decoration: line-through;
+    color: #999;
+    margin-left: 5px;
+  }
+  
+  /* Alignement du bouton "Ajouter au panier" */
+.add-to-cart {
+    margin-top: 10px; /* Force le bouton à être positionné à la fin */
+    background: #2ecc71;
+    color: #fff;
+    border: none;
+    padding: 5px 70px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    align-self: center; /* Centre le bouton horizontalement */
+}
+
+.add-to-cart:hover {
+    background: #27ae60;
+}
+  .basket-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #3498db;
+    color: #fff;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 50px;
+    font-size: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+  }
+  .basket-button:hover {
+    background: #2980b9;
+  }
+  
+  /* Tags */
+  .tags {
+    text-align: left;
+  }
+  .sale, .hot {
+    color: #e74c3c;
+    font-weight: bold;
+    font-size: 0.9rem;
+  }
+  .discount {
+    background: #2ecc71;
+    color: #fff;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    margin-left: 10px;
+  }
+  
