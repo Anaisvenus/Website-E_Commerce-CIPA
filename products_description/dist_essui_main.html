@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oxivir Excel Foam</title>
+    <!-- Link fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .product-container {
+            display: flex;
+            gap: 20px;
+            max-width: 800px;
+            width: 90%;
+            background-color: white;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .product-image {
+            flex: 1;
+            background-color: #f3f3f3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-image img {
+            max-width: 100%;
+            max-height: 300px;
+        }
+
+        .product-details {
+            flex: 2;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-title {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #007bff;
+        }
+
+        .product-description {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .product-price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+
+        .quantity-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .input-number {
+            width: 60px;
+            height: 35px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .add-to-cart-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .cross{
+            color:red;
+            text-align: end;
+        }
+
+        @media (max-width: 768px) {
+            .product-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .product-image {
+                width: 100%;
+                padding: 20px;
+            }
+
+            .product-details {
+                width: 100%;
+                text-align: center;
+            }
+
+            .quantity-container {
+                justify-content: center;
+            }
+        }
+    </style>
+    <script>
+        function addToCart() {
+            // Récupérer les informations du produit
+            const product = {
+                name: "Distributeur d'essuie-main",
+                price: 25.99,
+                quantity: parseInt(document.getElementById("quantity").value),
+                image: "../images/background removed images/IMG_7330.PNG"
+            };
+
+            // Récupérer les produits existants dans le localStorage
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+            // Vérifier si le produit est déjà dans le panier
+            const index = cart.findIndex(item => item.name === product.name);
+
+            if (index > -1) {
+                // Si le produit existe, augmenter la quantité
+                cart[index].quantity += product.quantity;
+            } else {
+                // Sinon, ajouter le nouveau produit
+                cart.push(product);
+            }
+
+            // Sauvegarder le panier dans le localStorage
+            localStorage.setItem("cart", JSON.stringify(cart));
+
+            alert("Produit ajouté au panier !");
+        }
+    </script>
+</head>
+<body>
+
+    
+    <div class="product-container">
+        <!-- Image du produit -->
+        <div class="product-image">
+            <img src="../images/background removed images/IMG_7330.PNG" alt="Oxivir Excel Foam">
+        </div>
+
+        <!-- Détails du produit -->
+        <div class="product-details">
+            <a href="../shop.html"><i class="fa-regular fa-circle-xmark cross"></i></a>
+            <h1 class="product-title">Distributeur d'essuie-main</h1>
+            <p class="product-description">
+                Le distributeur d'essuie-mains est un appareil essentiel pour assurer un séchage hygiénique des mains dans les espaces publics, les bureaux, les hôpitaux et autres établissements à fort passage. Il permet de distribuer des serviettes en papier ou des rouleaux d'essuie-mains de manière propre et pratique, contribuant ainsi à maintenir un environnement sain tout en facilitant l'entretien.
+            </p>
+            <p class="product-price">Prix : 25,99 FCFA</p>
+
+            <!-- Sélecteur de quantité et bouton -->
+            <div class="quantity-container">
+                <label for="quantity">Quantité :</label>
+                <input class="input-number" id="quantity" type="number" value="1" min="1">
+                <button class="add-to-cart-btn" onclick="addToCart()">Ajouter au panier</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

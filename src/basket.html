@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>CIPA JESSOUGNON</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../css/bootstrap.css" />
+  <link href="../css/style.css" rel="stylesheet" />
+  <link href="../css/responsive.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.0/dist/tailwind.min.css" rel="stylesheet">
+
+  <style>
+    body { font-family: 'Poppins', sans-serif; background-color: #f9f9f9; padding: 20px; }
+    .cart-container { max-width: 800px; margin: 0 auto; background-color: white; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); padding: 20px; }
+    .cart-item { display: flex; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #ddd; padding-bottom: 10px; }
+    .cart-item img { width: 80px; height: 80px; object-fit: cover; margin-right: 20px; }
+    .cart-item-details { flex: 1; }
+    .cart-item-title { font-size: 18px; font-weight: 600; margin-bottom: 5px; }
+    .cart-item-price { color: #28a745; font-weight: bold; margin-bottom: 10px; }
+    .cart-item-quantity { display: flex; align-items: center; gap: 10px; }
+    .input-number { width: 50px; text-align: center; border: 1px solid #ddd; border-radius: 5px; }
+    .checkout { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; }
+    .checkout button { background-color: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; font-size: 16px; font-weight: 600; cursor: pointer; }
+  </style>
+
+  <script>
+    // Function to load the cart from localStorage
+    function loadCart() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const cartItems = document.getElementById("cart-items");
+      let totalPrice = 0;
+      
+      cartItems.innerHTML = ""; // Clear current cart items
+
+      // Loop through each product in the cart
+      cart.forEach((product, index) => {
+        const itemTotalPrice = product.prix_unitaire * product.quantity;
+        totalPrice += itemTotalPrice;
+        const cartItem = `
+          <div class="cart-item">
+            <img src="${product.image_url}" alt="${product.nom}">
+            <div class="cart-item-details">
+              <div class="cart-item-title">${product.nom}</div>
+              <div class="cart-item-price">${product.prix_unitaire} FCFA</div>
+              <div class="cart-item-quantity">
+                <button onclick="updateQuantity(${index}, -1)">-</button>
+                <input type="number" value="${product.quantity}" id="quantity-${index}" class="input-number" onchange="updateQuantity(${index})">
+                <button onclick="updateQuantity(${index}, 1)">+</button>
+              </div>
+            </div>
+            <button onclick="removeItem(${index})" class="remove-item">🗑️</button>
+          </div>
+        `;
+        cartItems.innerHTML += cartItem;
+      });
+
+      // Display total price
+      document.getElementById("total-price").innerText = totalPrice + " FCFA";
+    }
+
+    // Update the quantity of a product in the cart
+    function updateQuantity(index, delta = 0) {
+      const cart = JSON.parse(localStorage.getItem("cart"));
+      const newQuantity = delta ? cart[index].quantity + delta : document.getElementById("quantity-" + index).value;
+      if (newQuantity > 0) {
+        cart[index].quantity = newQuantity;
+      }
+      localStorage.setItem("cart", JSON.stringify(cart));
+      loadCart(); // Reload the cart
+    }
+
+    // Remove an item from the cart
+    function removeItem(index) {
+      const cart = JSON.parse(localStorage.getItem("cart"));
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      loadCart(); // Reload the cart
+    }
+
+    window.onload = loadCart;
+  </script>
+</head>
+<body>
+  <div class="hero_area">
+    <!-- header section strats -->
+    <header class="header_section">
+      <nav class="navbar navbar-expand-lg custom_nav-container ">
+        <a class="navbar-brand" href="index.html">
+          <span>
+            CIPA JESSOUGNON
+          </span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class=""></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav  ">
+            <li class="nav-item active">
+              <a class="nav-link" href="index.html">Accueil <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="shop.html">
+                Nos produits
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="basket.html">
+                Mon panier
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="testimonial.html">
+                Avis
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contactez-nous</a>
+            </li>
+          </ul>
+          <div class="user_option">
+            <a href="basket.html">
+              <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+            </a>
+            <form class="form-inline ">
+              <button class="btn nav_search-btn" type="submit">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </button>
+            </form>
+            <a href="login.html">Se connecter</a>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <!-- end header section -->
+    <!-- slider section -->
+
+  </div>
+  <!-- end hero area -->
+
+  <div class="cart-container">
+    <h2>Votre panier</h2>
+    <div id="cart-items"></div>
+    <div class="checkout">
+      <div>Total : <span id="total-price">0 FCFA</span></div>
+      <a href="payment.html">
+      <button >Valider la commande</button></a>
+    </div>
+  </div>
+
+  <section class="info_section layout_padding2-top">
+    <div class="info_container">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-lg-3">
+            <h6>CIPA JESSOUGNON</h6>
+            <p>Nous sommes une entreprise de nettoyage professionnelle dédiée à fournir des services de haute qualité.</p>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="info_form">
+              <h5>Newsletter</h5>
+              <form action="#">
+                <input type="email" placeholder="Entrez votre email">
+                <button>Abonnez-vous</button>
+              </form>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <h6>Besoin d'aide?</h6>
+            <p>Contactez-nous au <a href="tel:+229 62 31 5172">+229 62 31 5172</a></p>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <h6>CONTACTTEZ-NOUS</h6>
+            <p><i class="fa fa-map-marker"></i> 9F74+4QM, Rue 1682B, Cotonou</p>
+            <p><i class="fa fa-phone"></i> +229 62 31 5172</p>
+            <p><i class="fa fa-envelope"></i> jessougnoncipa2@yahoo.fr</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer_section">
+    <div class="container">
+      <p>&copy; <span id="displayYear"></span> Tous droits réservés par <a href="https://html.design/">Free Html Templates</a></p>
+    </div>
+  </footer>
+
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/bootstrap.js"></script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>Détails du produit</title>
+  <link rel="stylesheet" href="../css/bootstrap.css" />
+  <link href="../css/style.css" rel="stylesheet" />
+  <link href="../css/responsive.css" rel="stylesheet" />
+  <script>
+    // Function to get URL parameters
+    function getQueryParameter(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
+
+    // Fetch and display product details
+    async function fetchProductDetails() {
+      const productId = getQueryParameter('id');
+      if (productId) {
+        try {
+          const response = await fetch('../backend/index.php?id=' + productId);
+          const product = await response.json();
+
+          // Check if the product is found
+          if (product && product.nom) {
+            // Display product details
+            document.getElementById('product-image').src = product.image_url;
+            document.getElementById('product-title').innerText = product.nom;
+            document.getElementById('product-description').innerText = product.description;
+            document.getElementById('product-price').innerText = product.prix_unitaire + ' FCFA';
+          } else {
+            alert("Produit non trouvé.");
+          }
+        } catch (error) {
+          console.error("Erreur de récupération du produit:", error);
+          alert("Erreur de récupération du produit.");
+        }
+      } else {
+        alert("Aucun ID de produit spécifié.");
+      }
+    }
+
+    // Load product details on page load
+    window.onload = fetchProductDetails;
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div class="product-detail">
+      <h1 id="product-title">Chargement...</h1>
+      <img id="product-image" class="product-image" src="../images/default-image.jpg" alt="Image du produit" />
+      <p id="product-description">Description du produit...</p>
+      <p id="product-description">${product.description}</p>
+      <p id="product-price">Prix: ...</p>
+      <input type="number" id="quantity" class="quantity-input" value="quantity" min="1" />
+      <button onclick="addToCartFromDetail()" class="add-to-cart">Ajouter au panier</button>
+    </div>
+  </div>
+
+  <script>
+    // Add the product to the cart from the detail page
+    function addToCartFromDetail() {
+      const quantity = document.getElementById('quantity').value || 1;
+      const product = {
+        id: getQueryParameter('id'),
+        nom: document.getElementById('product-title').innerText,
+        image_url: document.getElementById('product-image').src,
+        description: document.getElementById('product-description').innerText,
+        prix_unitaire: document.getElementById('product-price').innerText.replace(' FCFA', ''),
+        quantity: parseInt(quantity)
+      };
+
+      // Store product in cart (localStorage)
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const existingProductIndex = cart.findIndex(item => item.id === product.id);
+
+      if (existingProductIndex !== -1) {
+        cart[existingProductIndex].quantity += product.quantity;
+      } else {
+        cart.push(product);
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(`Produit ajouté au panier : ${product.nom} | Quantité : ${product.quantity}`);
+    }
+  </script>
+
+  <footer class="footer_section">
+    <div class="container">
+      <p>&copy; <span id="displayYear"></span> Tous droits réservés par <a href="https://html.design/">Free Html Templates</a></p>
+    </div>
+  </footer>
+
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/bootstrap.js"></script>
+</body>
+</html>
