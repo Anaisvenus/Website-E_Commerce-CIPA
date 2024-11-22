@@ -17,18 +17,19 @@ if ($conn->connect_error) {
 function getProductById($conn, $id) {
     $sql = "SELECT produit_id, nom, prix_unitaire, description, image_url FROM produits WHERE produit_id = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('i', $id); // Binding the parameter
+    $stmt->bind_param('i', $id);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
         $product = $result->fetch_assoc();
-        $product['image_url'] = empty($product['image_url']) ? 'images/default-image.jpg' : $product['image_url'];
+        $product['image_url'] = empty($product['image_url']) ? '../images/default-image.jpg' : '../' . $product['image_url'];
         return $product;
     } else {
         return null;
     }
 }
+
 
 // Function to fetch all products
 function getAllProducts($conn) {
@@ -38,13 +39,13 @@ function getAllProducts($conn) {
     $products = [];
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            $row['image_url'] = empty($row['image_url']) ? 'images/default-image.jpg' : $row['image_url'];
+            $row['image_url'] = empty($row['image_url']) ? '../images/default-image.jpg' : '../' . $row['image_url'];
             $products[] = $row;
         }
     }
-
     return $products;
 }
+
 
 // Get the product ID from the query string if available
 $productId = isset($_GET['id']) ? $_GET['id'] : null;
